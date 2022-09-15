@@ -44,4 +44,15 @@ class IndexController extends Controller
              ->route('tweet.update', ['tweetId' => $tweet->tweet_id])
              ->with('feedback.success', 'つぶやきを編集しました');
     }
+
+    public function delete(Request $request)
+    {
+        $tweetId = (int) $request->route('tweetId');
+        $tweet   = Tweet::where('tweet_id', $tweetId)->firstOrFail();
+        $tweet->delete();
+
+        return redirect()
+             ->route('tweet.index')
+             ->with('feedback.success', 'つぶやきを削除しました');
+    }
 }

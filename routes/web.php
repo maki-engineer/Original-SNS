@@ -25,6 +25,8 @@ Route::get('/tweet/update/{tweetId}', 'App\Http\Controllers\Tweet\IndexControlle
 ->name('tweet.update');
 Route::put('/tweet/update/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@put')
 ->name('tweet.put');
+Route::delete('/tweet/delete/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@delete')
+->name('tweet.delete');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

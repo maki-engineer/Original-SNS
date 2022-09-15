@@ -11,6 +11,9 @@
     <h1>original-sns</h1>
     <div>
         <p>投稿フォーム</p>
+        @if(session('feedback.success'))
+          <p style="color: green">{{ session('feedback.success') }}</p>
+        @endif
         <form action="{{ route('tweet.create') }}" method="post">
             @csrf
             <label for="tweet-content">つぶやき</label>
@@ -28,6 +31,11 @@
           <summary>{{ $tweet->content }}</summary>
           <div>
             <a href="{{ route('tweet.update', ['tweetId' => $tweet->tweet_id]) }}">編集</a>
+            <form action="{{ route('tweet.delete', ['tweetId' => $tweet->tweet_id]) }}" method="post">
+              @method('DELETE')
+              @csrf
+              <button type="submit">削除</button>
+            </form>
           </div>
         </details>
       @endforeach
