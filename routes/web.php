@@ -17,10 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tweet', "App\Http\Controllers\Tweet\IndexController@index")
+Route::get('/tweet', 'App\Http\Controllers\Tweet\IndexController@index')
 ->name('tweet.index');
-Route::post('/create', "App\Http\Controllers\Tweet\IndexController@create")
+Route::post('/tweet/create', 'App\Http\Controllers\Tweet\IndexController@create')
 ->name('tweet.create');
+Route::get('/tweet/update/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@update')
+->name('tweet.update');
+Route::put('/tweet/update/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@put')
+->name('tweet.put');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
