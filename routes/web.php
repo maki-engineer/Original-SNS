@@ -17,7 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tweet', "App\Http\Controllers\Tweet\IndexController@index");
+Route::get('/tweet', "App\Http\Controllers\Tweet\IndexController@index")
+->name('tweet.index');
+Route::post('/create', "App\Http\Controllers\Tweet\IndexController@create")
+->name('tweet.create');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
