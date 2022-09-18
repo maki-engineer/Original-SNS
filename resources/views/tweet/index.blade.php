@@ -10,7 +10,6 @@
 <body>
     <h1>original-sns</h1>
     <div>
-        <p>投稿フォーム</p>
         @if(session('feedback.success'))
           <p style="color: green">{{ session('feedback.success') }}</p>
         @endif
@@ -27,17 +26,7 @@
     </div>
     <div>
       @foreach($tweets as $tweet)
-        <details>
-          <summary>{{ $tweet->content }}</summary>
-          <div>
-            <a href="{{ route('tweet.update', ['tweetId' => $tweet->tweet_id]) }}">編集</a>
-            <form action="{{ route('tweet.delete', ['tweetId' => $tweet->tweet_id]) }}" method="post">
-              @method('DELETE')
-              @csrf
-              <button type="submit">削除</button>
-            </form>
-          </div>
-        </details>
+        <div><a href="{{ route('tweet.show', ['tweetId' => $tweet->tweet_id]) }}">{{ $tweet->content }}</a></div>
       @endforeach
     </div>
 </body>

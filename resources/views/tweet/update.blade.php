@@ -8,13 +8,9 @@
     <title>original-sns</title>
 </head>
 <body>
-<h1>つぶやきを編集する</h1>
+<h1>つぶやきを編集</h1>
 <div>
     <a href="{{ route('tweet.index') }}">< 戻る</a>
-    <p>投稿フォーム</p>
-    @if(session('feedback.success'))
-      <p style="color: green">{{ session('feedback.success') }}</p>
-    @endif
     <form action="{{ route('tweet.put', ['tweetId' => $tweet->tweet_id]) }}" method="post">
         @method('PUT')
         @csrf

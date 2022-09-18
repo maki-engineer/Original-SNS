@@ -17,6 +17,14 @@ class IndexController extends Controller
         return view('tweet.index', ['tweets' => $tweets]);
     }
 
+    public function show(Request $request)
+    {
+        $tweetId = (int)$request->route('tweetId');
+        $tweet   = Tweet::where('tweet_id', $tweetId)->firstOrFail();
+
+        return view('tweet.show', ['tweet' => $tweet]);
+    }
+
     public function create(CreateRequest $request)
     {
         $tweet          = new Tweet;
@@ -41,13 +49,13 @@ class IndexController extends Controller
         $tweet->save();
 
         return redirect()
-             ->route('tweet.update', ['tweetId' => $tweet->tweet_id])
+             ->route('tweet.index', ['tweetId' => $tweet->tweet_id])
              ->with('feedback.success', 'つぶやきを編集しました');
     }
 
     public function delete(Request $request)
     {
-        $tweetId = (int) $request->route('tweetId');
+        $tweetId = (int)$request->route('tweetId');
         $tweet   = Tweet::where('tweet_id', $tweetId)->firstOrFail();
         $tweet->delete();
 
