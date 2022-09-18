@@ -28,6 +28,7 @@ class IndexController extends Controller
     public function create(CreateRequest $request)
     {
         $tweet          = new Tweet;
+        $tweet->user_id = $request->userId();
         $tweet->content = $request->tweet();
         $tweet->save();
 
