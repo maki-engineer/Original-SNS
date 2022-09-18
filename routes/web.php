@@ -22,6 +22,7 @@ Route::get('/tweet', 'App\Http\Controllers\Tweet\IndexController@index')
 Route::get('/tweet/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@show')
 ->name('tweet.show');
 Route::post('/tweet/create', 'App\Http\Controllers\Tweet\IndexController@create')
+->middleware('auth')
 ->name('tweet.create');
 Route::get('/tweet/update/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@update')
 ->name('tweet.update');

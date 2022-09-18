@@ -9,24 +9,29 @@
 </head>
 <body>
     <h1>original-sns</h1>
-    <div>
-        @if(session('feedback.success'))
-          <p style="color: green">{{ session('feedback.success') }}</p>
-        @endif
-        <form action="{{ route('tweet.create') }}" method="post">
-            @csrf
-            <label for="tweet-content">つぶやき</label>
-            <span>140文字まで</span>
-            <textarea id="tweet-content" type="text" name="tweet" placeholder="つぶやきを入力"></textarea>
-            @error('tweet')
-              <p style="color: red;">{{ $message }}</p>
-            @enderror
-            <button type="submit">投稿</button>
-        </form>
-    </div>
+    @auth
+      <div>
+          @if(session('feedback.success'))
+            <p style="color: green">{{ session('feedback.success') }}</p>
+          @endif
+          <form action="{{ route('tweet.create') }}" method="post">
+              @csrf
+              <label for="tweet-content">つぶやき</label>
+              <span>140文字まで</span>
+              <textarea id="tweet-content" type="text" name="tweet" placeholder="つぶやきを入力"></textarea>
+              @error('tweet')
+                <p style="color: red;">{{ $message }}</p>
+              @enderror
+              <button type="submit">投稿</button>
+          </form>
+      </div>
+    @endauth
     <div>
       @foreach($tweets as $tweet)
-        <div><a href="{{ route('tweet.show', ['tweetId' => $tweet->tweet_id]) }}">{{ $tweet->content }}</a></div>
+        <h3>{{ $tweet->user->name }}</h3>
+        <div>
+          <a href="{{ route('tweet.show', ['tweetId' => $tweet->tweet_id]) }}">{{ $tweet->content }}</a>
+        </div>
       @endforeach
     </div>
 </body>
