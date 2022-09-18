@@ -10,14 +10,16 @@
 <body>
     <div>
       <p>{{ $tweet->content }}</p>
-      <div>
-        <a href="{{ route('tweet.update', ['tweetId' => $tweet->tweet_id]) }}">編集</a>
-        <form action="{{ route('tweet.delete', ['tweetId' => $tweet->tweet_id]) }}" method="post">
-          @method('DELETE')
-          @csrf
-          <button type="submit">削除</button>
-        </form>
-      </div>
+      @if(\Illuminate\Support\Facades\Auth::id() === $tweet->user_id)
+        <div>
+          <a href="{{ route('tweet.update', ['tweetId' => $tweet->tweet_id]) }}">編集</a>
+          <form action="{{ route('tweet.delete', ['tweetId' => $tweet->tweet_id]) }}" method="post">
+            @method('DELETE')
+            @csrf
+            <button type="submit">削除</button>
+          </form>
+        </div>
+      @endif
     </div>
 </body>
 </html>
