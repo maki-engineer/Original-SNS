@@ -19,17 +19,18 @@ Route::get('/', function () {
 
 Route::get('/tweet', 'App\Http\Controllers\Tweet\IndexController@index')
 ->name('tweet.index');
-Route::get('/tweet/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@show')
-->name('tweet.show');
-Route::post('/tweet/create', 'App\Http\Controllers\Tweet\IndexController@create')
-->middleware('auth')
-->name('tweet.create');
-Route::get('/tweet/update/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@update')
-->name('tweet.update');
-Route::put('/tweet/update/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@put')
-->name('tweet.put');
-Route::delete('/tweet/delete/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@delete')
-->name('tweet.delete');
+Route::middleware('auth')->group(function() {
+    Route::get('/tweet/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@show')
+    ->name('tweet.show');
+    Route::post('/tweet/create', 'App\Http\Controllers\Tweet\IndexController@create')
+    ->name('tweet.create');
+    Route::get('/tweet/update/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@update')
+    ->name('tweet.update');
+    Route::put('/tweet/update/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@put')
+    ->name('tweet.put');
+    Route::delete('/tweet/delete/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@delete')
+    ->name('tweet.delete');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
