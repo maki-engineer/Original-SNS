@@ -16,10 +16,11 @@
           <form action="{{ route('tweet.delete', ['tweetId' => $tweet->tweet_id]) }}" method="post">
             @method('DELETE')
             @csrf
-            <button type="submit">削除</button>
+            <button type="submit" onClick="delete_alert(event); return false;">削除</button>
           </form>
         </div>
       @endif
     </div>
+    <script src="{{ asset('/js/delete_alert.js') }}"></script>
 </body>
 </html>
