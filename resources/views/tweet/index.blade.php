@@ -7,12 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>original-sns</title>
-
-    <style>
-        body {
-          color: red;
-        }
-    </style>
 </head>
 <body>
     <h1>original-sns</h1>
