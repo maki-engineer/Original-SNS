@@ -32,6 +32,7 @@ class IndexController extends Controller
         $tweet          = new Tweet;
         $tweet->user_id = $request->userId();
         $tweet->content = $request->tweet();
+        $tweet->status  = 1;
         $tweet->save();
 
         return redirect()->route('tweet.index');
