@@ -8,7 +8,7 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <title>original-sns</title>
 </head>
-<body>
+<body class="bg-gray-50">
     <div class="flex justify-center">
       <div class="max-w-screen-sm w-full">
         @auth
@@ -59,6 +59,7 @@
                   </div>
               </form>
           </div>
+          <x-tweet.list :tweets="$tweets"></x-tweet.list>
         @endauth
 
         @guest
@@ -70,17 +71,6 @@
           </div>
         @endguest
       </div>
-    </div>
-
-    <div>
-      @foreach($tweets as $tweet)
-      <div>
-        <h3>{{ $tweet->user->name }}</h3>
-        <div>
-          <a href="{{ route('tweet.show', ['tweetId' => $tweet->tweet_id]) }}">{{ $tweet->content }}</a>
-        </div>
-      </div>
-      @endforeach
     </div>
     <script src="{{ mix('/js/app.js') }}"></script>
 </body>
