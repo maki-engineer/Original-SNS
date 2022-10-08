@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('name')->nullable()->change();
+        Schema::table('accounts', function (Blueprint $table) {
+            $table->renameColumn('account_id', 'id');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('name')->nullable(false)->change();
+        Schema::table('accounts', function (Blueprint $table) {
+            $table->renameColumn('id', 'account_id');
         });
     }
 };
