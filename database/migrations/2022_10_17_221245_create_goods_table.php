@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('goods', function (Blueprint $table) {
             $table->unsignedBigInteger('tweet_id');
             $table->foreign('tweet_id')->references('tweet_id')->on('tweets')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('accounts')->cascadeOnDelete();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('accounts')->onDelete('set null');
             $table->timestamps();
         });
     }
