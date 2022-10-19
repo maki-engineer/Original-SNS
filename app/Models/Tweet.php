@@ -15,4 +15,9 @@ class Tweet extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function goods()
+    {
+        return $this->belongsToMany(Account::class, 'goods')->using(Good::class);
+    }
 }
