@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function() {
     ->name('tweet.put');
     Route::delete('/tweet/delete/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@delete')
     ->name('tweet.delete');
+
+    Route::post('/tweet/like/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@like')
+    ->name('tweet.like');
 });
 
 Route::get('/dashboard', function () {

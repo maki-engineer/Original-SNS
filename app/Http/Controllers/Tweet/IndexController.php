@@ -7,6 +7,7 @@ use App\Services\TweetService;
 use App\Http\Requests\Tweet\CreateRequest;
 use App\Http\Requests\Tweet\UpdateRequest;
 use App\Models\Tweet;
+use App\Models\Good;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -15,6 +16,11 @@ class IndexController extends Controller
     public function index(Request $request, TweetService $tweetService)
     {
         $tweets = $tweetService->getTweets();
+
+        // $tweetId = (int)$request->route('tweetId');
+        // $userId  = Tweet::where('tweet_id', $tweetId)->firstOrFail()->user_id;
+
+        // $goods = Good::where('tweet_id', $tweetId)->where('user_id', $userId);
 
         return view('tweet.index', ['tweets' => $tweets]);
     }
@@ -81,5 +87,17 @@ class IndexController extends Controller
         return redirect()
              ->route('tweet.index')
              ->with('feedback.success', 'つぶやきを削除しました');
+    }
+
+    public function like(Request $request)
+    {
+        $good           = new Good;
+        $tweetId        = (int)$request->route('tweetId');
+        $userId         = Tweet::where('tweet_id', $tweetId)->firstOrFail()->user_id;
+        $good->tweet_id = $tweetId;
+        $good->user_id  = $userId;
+        $good->save();
+
+        return redirect()->route('tweet.index');
     }
 }

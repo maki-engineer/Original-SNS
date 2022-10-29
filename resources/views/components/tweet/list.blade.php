@@ -11,6 +11,13 @@
                 </span>
                 <div class="text-gray-600">
                   <a href="{{ route('tweet.show', ['tweetId' => $tweet->tweet_id]) }}">{!! nl2br(e($tweet->content)) !!}</a>
+                  <div class="flex">
+                      <form action="{{ route('tweet.like', ['tweetId' => $tweet->tweet_id]) }}" method="post">
+                          @csrf
+                          <button type="submit"><img class="mt-2" src="/images/si_Heart_alt.svg"></button>
+                      </form>
+                      <div class="mt-2 ml-2">0</div>
+                  </div>
                 </div>
             </div>
         </li>
