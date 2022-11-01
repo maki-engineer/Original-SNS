@@ -7,16 +7,32 @@ use App\Services\TweetService;
 use App\Http\Requests\Tweet\CreateRequest;
 use App\Http\Requests\Tweet\UpdateRequest;
 use App\Models\Tweet;
+use App\Models\Good;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class IndexController extends Controller
 {
     public function index(Request $request, TweetService $tweetService)
     {
-        $tweets = $tweetService->getTweets();
+        $tweets        = $tweetService->getTweets();
+        $tweetsToArray = $tweets->toArray();
 
-        return view('tweet.index', ['tweets' => $tweets]);
+        $userId = Auth::id();
+
+        // いいねの数
+        $goods = [];
+
+        // いいねしたかどうか
+        $isGoods = [];
+
+        foreach (array_values($tweetsToArray) as $tweet) {
+            $goods[]   = Good::where('tweet_id', $tweet['tweet_id'])->count();
+            $isGoods[] = (boolean)Good::where('user_id', $userId)->where('tweet_id', $tweet['tweet_id'])->count();
+        }
+
+        return view('tweet.index', ['tweets' => $tweets, 'goods' => $goods, 'isGoods' => $isGoods]);
     }
 
     public function show(Request $request)
@@ -46,7 +62,7 @@ class IndexController extends Controller
             throw new AccessDeniedHttpException();
         }
 
-        $tweet   = Tweet::where('tweet_id', $tweetId)->firstOrFail();
+        $tweet = Tweet::where('tweet_id', $tweetId)->firstOrFail();
 
         return view('tweet.update', ['tweet' => $tweet]);
     }
@@ -75,11 +91,37 @@ class IndexController extends Controller
             throw new AccessDeniedHttpException();
         }
 
-        $tweet   = Tweet::where('tweet_id', $tweetId)->firstOrFail();
+        $tweet = Tweet::where('tweet_id', $tweetId)->firstOrFail();
         $tweet->delete();
 
         return redirect()
              ->route('tweet.index')
              ->with('feedback.success', 'つぶやきを削除しました');
+    }
+
+    public function like(Request $request)
+    {
+        $good           = new Good;
+        $tweetId        = (int)$request->route('tweetId');
+        $userId         = Auth::id();
+        $good->tweet_id = $tweetId;
+        $good->user_id  = $userId;
+        $good->save();
+
+        return redirect()
+             ->route('tweet.index');
+    }
+
+    public function unlike(Request $request)
+    {
+        $tweetId = (int)$request->route('tweetId');
+        $userId  = Auth::id();
+
+        $good = Good::where('user_id', $userId)->where('tweet_id', $tweetId)->firstOrFail();
+
+        $good->delete();
+
+        return redirect()
+             ->route('tweet.index');
     }
 }

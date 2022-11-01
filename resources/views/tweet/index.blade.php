@@ -59,7 +59,7 @@
                   </div>
               </form>
           </div>
-          <x-tweet.list :tweets="$tweets"></x-tweet.list>
+          <x-tweet.list :tweets="$tweets" :goods="$goods" :isGoods="$isGoods"></x-tweet.list>
         @endauth
 
         @guest
