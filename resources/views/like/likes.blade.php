@@ -11,17 +11,18 @@
 <body class="bg-gray-50">
     <div class="flex justify-center">
       <div class="max-w-screen-sm w-full">
-        <p class="text-2xl">{{ $tweet->content }}</p>
         @if(\Illuminate\Support\Facades\Auth::id() === $tweet->user_id)
-          <div class="flex">
-            <a href="{{ route('tweet.update', ['tweetId' => $tweet->tweet_id]) }}">編集</a>
-            <form action="{{ route('tweet.delete', ['tweetId' => $tweet->tweet_id]) }}" method="post">
-              @method('DELETE')
-              @csrf
-              <button type="submit" onClick="delete_alert(event); return false;">削除</button>
-            </form>
+          <div class="bg-white rounded-md shadow-lg mt-5 mb-5">
+            <ul>
+              @foreach ($likes as $like)
+                @foreach ($like as $users)
+                  <li class="border-b last:border-b-0 border-gray-200 p-4 flex items-start justify-between">
+                    <p>{{ $users->name }}</p>
+                  </li>
+                @endforeach
+              @endforeach
+            </ul>
           </div>
-          <div><a href="{{ route('like.likes', ['tweetId' => $tweet->tweet_id]) }}">{{ $likes }}個のいいね</a></div>
         @endif
       </div>
     </div>
