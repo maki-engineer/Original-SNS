@@ -43,7 +43,10 @@ class IndexController extends Controller
 
         $likes = Good::where('tweet_id', $tweetId)->count();
 
-        return view('tweet.show', ['tweet' => $tweet, 'likes' => $likes]);
+        $userId = Auth::id();
+        $isGood = (boolean)Good::where('user_id', $userId)->where('tweet_id', $tweet['tweet_id'])->count();
+
+        return view('tweet.show', ['tweet' => $tweet, 'likes' => $likes, 'isGood' => $isGood]);
     }
 
     public function create(CreateRequest $request)
@@ -111,8 +114,7 @@ class IndexController extends Controller
         $good->user_id  = $userId;
         $good->save();
 
-        return redirect()
-             ->route('tweet.index');
+        return redirect()->back();
     }
 
     public function unlike(Request $request)
@@ -124,8 +126,7 @@ class IndexController extends Controller
 
         $good->delete();
 
-        return redirect()
-             ->route('tweet.index');
+        return redirect()->back();
     }
 
     public function likes(Request $request)

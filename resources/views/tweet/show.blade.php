@@ -22,6 +22,19 @@
             </form>
           </div>
           <div><a href="{{ route('like.likes', ['tweetId' => $tweet->tweet_id]) }}">{{ $likes }}個のいいね</a></div>
+        @else
+          @if($isGood)
+              <form action="{{ route('tweet.unlike', ['tweetId' => $tweet->tweet_id]) }}" method="post">
+                  @method('DELETE')
+                  @csrf
+                  <button type="submit"><img class="mt-2" src="/images/si_Heart.svg"></button>
+              </form>
+          @else
+              <form action="{{ route('tweet.like', ['tweetId' => $tweet->tweet_id]) }}" method="post">
+                  @csrf
+                  <button type="submit"><img class="mt-2" src="/images/si_Heart_alt.svg"></button>
+              </form>
+          @endif
         @endif
       </div>
     </div>
