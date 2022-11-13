@@ -8,14 +8,17 @@ use App\Http\Requests\Tweet\CreateRequest;
 use App\Http\Requests\Tweet\UpdateRequest;
 use App\Models\Tweet;
 use App\Models\Good;
+use App\Services\AccountService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class IndexController extends Controller
 {
-    public function index(Request $request, TweetService $tweetService)
+    public function index(Request $request, TweetService $tweetService, AccountService $accountService)
     {
+        $account = $accountService->getAccount();
+
         $tweets        = $tweetService->getTweets();
         $tweetsToArray = $tweets->toArray();
 
@@ -29,10 +32,10 @@ class IndexController extends Controller
 
         foreach (array_values($tweetsToArray) as $tweet) {
             $goods[]   = Good::where('tweet_id', $tweet['tweet_id'])->count();
-            $isGoods[] = (boolean)Good::where('user_id', $userId)->where('tweet_id', $tweet['tweet_id'])->count();
+            $isGoods[] = (bool)Good::where('user_id', $userId)->where('tweet_id', $tweet['tweet_id'])->count();
         }
 
-        return view('tweet.index', ['tweets' => $tweets, 'goods' => $goods, 'isGoods' => $isGoods]);
+        return view('tweet.index', ['account' => $account,  'tweets' => $tweets, 'goods' => $goods, 'isGoods' => $isGoods]);
     }
 
     public function show(Request $request)
@@ -58,7 +61,7 @@ class IndexController extends Controller
     {
         $tweetId = (int)$request->route('tweetId');
 
-        if(!$tweetService->checkOwnTweet($request->user()->id, $tweetId)){
+        if (!$tweetService->checkOwnTweet($request->user()->id, $tweetId)) {
             throw new AccessDeniedHttpException();
         }
 
@@ -70,7 +73,7 @@ class IndexController extends Controller
     public function put(UpdateRequest $request, TweetService $tweetService)
     {
 
-        if(!$tweetService->checkOwnTweet($request->user()->id, $request->id())){
+        if (!$tweetService->checkOwnTweet($request->user()->id, $request->id())) {
             throw new AccessDeniedHttpException();
         }
 
@@ -79,15 +82,15 @@ class IndexController extends Controller
         $tweet->save();
 
         return redirect()
-             ->route('tweet.index', ['tweetId' => $tweet->tweet_id])
-             ->with('feedback.success', 'つぶやきを編集しました');
+            ->route('tweet.index', ['tweetId' => $tweet->tweet_id])
+            ->with('feedback.success', 'つぶやきを編集しました');
     }
 
     public function delete(Request $request, TweetService $tweetService)
     {
         $tweetId = (int)$request->route('tweetId');
 
-        if(!$tweetService->checkOwnTweet($request->user()->id, $tweetId)){
+        if (!$tweetService->checkOwnTweet($request->user()->id, $tweetId)) {
             throw new AccessDeniedHttpException();
         }
 
@@ -95,8 +98,8 @@ class IndexController extends Controller
         $tweet->delete();
 
         return redirect()
-             ->route('tweet.index')
-             ->with('feedback.success', 'つぶやきを削除しました');
+            ->route('tweet.index')
+            ->with('feedback.success', 'つぶやきを削除しました');
     }
 
     public function like(Request $request)
@@ -109,7 +112,7 @@ class IndexController extends Controller
         $good->save();
 
         return redirect()
-             ->route('tweet.index');
+            ->route('tweet.index');
     }
 
     public function unlike(Request $request)
@@ -122,6 +125,6 @@ class IndexController extends Controller
         $good->delete();
 
         return redirect()
-             ->route('tweet.index');
+            ->route('tweet.index');
     }
 }
