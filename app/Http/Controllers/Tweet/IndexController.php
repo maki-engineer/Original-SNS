@@ -8,6 +8,7 @@ use App\Http\Requests\Tweet\CreateRequest;
 use App\Http\Requests\Tweet\UpdateRequest;
 use App\Models\Tweet;
 use App\Models\Good;
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -40,7 +41,12 @@ class IndexController extends Controller
         $tweetId = (int)$request->route('tweetId');
         $tweet   = Tweet::where('tweet_id', $tweetId)->firstOrFail();
 
-        return view('tweet.show', ['tweet' => $tweet]);
+        $likes = Good::where('tweet_id', $tweetId)->count();
+
+        $userId = Auth::id();
+        $isGood = (boolean)Good::where('user_id', $userId)->where('tweet_id', $tweet['tweet_id'])->count();
+
+        return view('tweet.show', ['tweet' => $tweet, 'likes' => $likes, 'isGood' => $isGood]);
     }
 
     public function create(CreateRequest $request)
@@ -108,8 +114,7 @@ class IndexController extends Controller
         $good->user_id  = $userId;
         $good->save();
 
-        return redirect()
-             ->route('tweet.index');
+        return redirect()->back();
     }
 
     public function unlike(Request $request)
@@ -121,7 +126,22 @@ class IndexController extends Controller
 
         $good->delete();
 
-        return redirect()
-             ->route('tweet.index');
+        return redirect()->back();
+    }
+
+    public function likes(Request $request)
+    {
+        $tweetId = (int)$request->route('tweetId');
+        $tweet   = Tweet::where('tweet_id', $tweetId)->firstOrFail();
+
+        $likesToArray = Good::where('tweet_id', $tweetId)->get()->toArray();
+
+        $likes = [];
+
+        foreach (array_values($likesToArray) as $like) {
+            $likes[] = Account::where('id', $like['user_id'])->get();
+        }
+
+        return view('like.likes', ['tweet' => $tweet, 'likes' => $likes]);
     }
 }
