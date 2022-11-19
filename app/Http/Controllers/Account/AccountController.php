@@ -24,9 +24,9 @@ class AccountController extends Controller
         return redirect()->route('tweet.index');
     }
 
-    public function update(CreateRequest $request, string $id)
+    public function update(CreateRequest $request, string $account_id)
     {
-        $account = Account::where('user_id', $id);
+        $account = Account::where('user_id', $account_id);
 
         $account->name = $request->input('name');
         $account->birthday = $request->date('birthday');

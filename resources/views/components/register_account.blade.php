@@ -1,5 +1,6 @@
 <p class="text-2xl">アカウント登録</p>
 <form action="{{ route('account.create') }}" method="post">
+    @method('POST')
     @csrf
     <div class="col-span-6 sm:col-span-4 py-2">
         <label for="icon" class="block text-sm font-medium text-gray-700">アイコン</label>
@@ -27,8 +28,6 @@
     </div>
     <small class="font-light text-gray-700">※チェックすると「10 ~ 20歳」のように表示されます</small>
     <div class="bg-gray-50 px-4 py-3 text-right sm:p-6">
-        @method('POST')
-        @csrf
         <button type="submit"
             class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">登録</button>
     </div>
