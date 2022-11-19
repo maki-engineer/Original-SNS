@@ -8,7 +8,7 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <title>original-sns</title>
 </head>
-<body class="bg-gray-50">
+<body class="bg-green-200"> <!-- bodyの色 before bg-gray-50 候補1 bg-pink-100 候補2 bg-lime-200 -->
     <div class="flex justify-center">
       <div class="max-w-screen-sm w-full">
         @auth
@@ -22,7 +22,10 @@
             </div>
           </form>
         @endauth
-        <h2 class="text-center text-blue-500 text-4xl font-bold mt-8 mb-8">original-sns</h2>
+        <div class="flex justify-center">
+          <!-- ここにアイコン(imgタグ)を設置する予定！ -->
+          <h1 class="text-green-500 text-4xl font-bold mt-8 mb-8">SpaChat</h1> <!-- textの色 before text-blue-500 候補1 text-pink-300 候補2 bg-lime-200 -->
+        </div>
         @auth
           <div class="p-4">
               @if(session('feedback.success'))
