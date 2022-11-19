@@ -20,6 +20,8 @@ Route::get('/', function () {
 Route::get('/tweet', 'App\Http\Controllers\Tweet\IndexController@index')
 ->name('tweet.index');
 Route::middleware('auth')->group(function() {
+    Route::get('/tweet/{tweetId}/likes', 'App\Http\Controllers\Tweet\IndexController@likes')
+    ->name('like.likes');
     Route::get('/tweet/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@show')
     ->name('tweet.show');
     Route::post('/tweet/create', 'App\Http\Controllers\Tweet\IndexController@create')
