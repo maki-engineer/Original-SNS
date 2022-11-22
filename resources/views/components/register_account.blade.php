@@ -1,4 +1,4 @@
-<p class="text-2xl">アカウント登録</p>
+<p class="text-2xl mt-4">アカウント登録</p>
 <form action="{{ route('account.create') }}" method="post">
     @method('POST')
     @csrf
