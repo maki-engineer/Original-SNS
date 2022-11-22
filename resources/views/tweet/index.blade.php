@@ -77,6 +77,7 @@
                     <x-tweet.list :tweets="$tweets" :goods="$goods" :isGoods="$isGoods"></x-tweet.list>
                 @endif
             @endauth
+
             @guest
                 <div class="flex flex-wrap justify-center">
                     <div class="w-1/2 p-4 flex flex-wrap justify-evenly">
@@ -84,6 +85,9 @@
                         <x-element.button-a :href="route('register')" theme="secondary">会員登録</x-element.button-a>
                     </div>
                 </div>
+
+                <!-- ここにh1タグで「SpaChatへようこそ！」てやるべきか -->
+                <h3 class="text-justify my-12 text-2xl border-solid border-2 p-8 border-amber-600 bg-amber-600">SpaChat（スパチャット）は、「温泉のようなチャット場」を由来として誕生したSNSです。<br><br>温泉は入ると疲れた体を回復してくれるだけでなく、癒されたり、最近ではメンタルが回復する効果も期待されていると言われています。そして、温泉はみんなが入ることが出来ます。<br><br>SpaChatも温泉と同じように、「SNSが原因で精神的に病んでしまった人が幸せになることが出来るSNSであってほしい」という願いから誕生しました。<br><br>SpaChatは他のSNSとは違い、他のアカウントのいいねの数やフォロワーの数などが表示されない仕組みになっています。他のSNSにはないオリジナルな機能を備えているSpaChat、是非楽しんでください！</h3>
             @endguest
         </div>
     </div>
