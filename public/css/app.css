@@ -516,6 +516,12 @@ video {
 }.mx-auto {
   margin-left: auto;
   margin-right: auto;
+}.mx-12 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }.ml-3 {
   margin-left: 0.75rem;
 }.-ml-px {
@@ -684,6 +690,8 @@ video {
   border-bottom-right-radius: 0.375rem;
 }.border {
   border-width: 1px;
+}.border-2 {
+  border-width: 2px;
 }.border-b {
   border-bottom-width: 1px;
 }.border-t {
@@ -694,6 +702,8 @@ video {
   border-bottom-width: 2px;
 }.border-r {
   border-right-width: 1px;
+}.border-solid {
+  border-style: solid;
 }.border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -711,6 +721,9 @@ video {
 }.border-gray-400 {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
+}.border-amber-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(217 119 6 / var(--tw-border-opacity));
 }.bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -732,18 +745,18 @@ video {
 }.bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}.bg-emerald-200 {
+}.bg-green-200 {
   --tw-bg-opacity: 1;
-  background-color: rgb(167 243 208 / var(--tw-bg-opacity));
+  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
 }.bg-pink-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(252 231 243 / var(--tw-bg-opacity));
 }.bg-lime-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(217 249 157 / var(--tw-bg-opacity));
-}.bg-green-200 {
+}.bg-amber-600 {
   --tw-bg-opacity: 1;
-  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
+  background-color: rgb(217 119 6 / var(--tw-bg-opacity));
 }.fill-current {
   fill: currentColor;
 }.p-4 {
@@ -752,6 +765,8 @@ video {
   padding: 0.5rem;
 }.p-6 {
   padding: 1.5rem;
+}.p-8 {
+  padding: 2rem;
 }.px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -803,6 +818,8 @@ video {
   text-align: left;
 }.text-center {
   text-align: center;
+}.text-justify {
+  text-align: justify;
 }.font-sans {
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }.text-sm {
@@ -817,15 +834,15 @@ video {
 }.text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
-}.text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
 }.text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
+}.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
 }.font-medium {
   font-weight: 500;
 }.font-semibold {
@@ -885,18 +902,15 @@ video {
 }.text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
-}.text-green-400 {
+}.text-green-500 {
   --tw-text-opacity: 1;
-  color: rgb(74 222 128 / var(--tw-text-opacity));
+  color: rgb(34 197 94 / var(--tw-text-opacity));
 }.text-blue-500 {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }.text-pink-300 {
   --tw-text-opacity: 1;
   color: rgb(249 168 212 / var(--tw-text-opacity));
-}.text-green-500 {
-  --tw-text-opacity: 1;
-  color: rgb(34 197 94 / var(--tw-text-opacity));
 }.underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;

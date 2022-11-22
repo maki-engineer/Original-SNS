@@ -24,7 +24,7 @@
         @endauth
         <div class="flex justify-center">
           <!-- ここにアイコン(imgタグ)を設置する予定！ -->
-          <h1 class="text-green-500 text-4xl font-bold mt-8 mb-8">SpaChat</h1> <!-- textの色 before text-blue-500 候補1 text-pink-300 候補2 bg-lime-200 -->
+          <h1 class="text-green-500 text-6xl font-bold mt-8 mb-8">SpaChat</h1> <!-- textの色 before text-blue-500 候補1 text-pink-300 候補2 bg-lime-200 -->
         </div>
         @auth
           <div class="p-4">
@@ -72,6 +72,9 @@
               <x-element.button-a :href="route('register')" theme="secondary">会員登録</x-element.button-a>
             </div>
           </div>
+
+          <!-- ここにh1タグで「SpaChatへようこそ！」てやるべきか -->
+          <h3 class="text-justify my-12 text-2xl border-solid border-2 p-8 border-amber-600 bg-amber-600">SpaChat（スパチャット）は、「温泉のようなチャット場」を由来として誕生したSNSです。<br><br>温泉は入ると疲れた体を回復してくれるだけでなく、癒されたり、最近ではメンタルが回復する効果も期待されていると言われています。そして、温泉はみんなが入ることが出来ます。<br><br>SpaChatも温泉と同じように、「SNSが原因で精神的に病んでしまった人が幸せになることが出来るSNSであってほしい」という願いから誕生しました。<br><br>SpaChatは他のSNSとは違い、他のアカウントのいいねの数やフォロワーの数などが表示されない仕組みになっています。他のSNSにはないオリジナルな機能を備えているSpaChat、是非楽しんでください！</h3>
         @endguest
       </div>
     </div>
