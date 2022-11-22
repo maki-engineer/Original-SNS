@@ -18,10 +18,15 @@ class AccountController extends Controller
         $account->birthday        = $request->date('birthday');
         $account->icon_image_path = $request->input('icon_image_path', '');
 
+        // 0 年齢非表示、1 年齢をあいまいに表示、2 年齢をはっきりと表示
+        $account->show_age_obscure = 2;
+
         if ($request->input('show_age_obscure')) {
-            $account->show_age_obscure = 0;
-        }else{
             $account->show_age_obscure = 1;
+        }
+
+        if ($request->input('not_show_age')) {
+            $account->show_age_obscure = 0;
         }
 
         $account->active_status = 1;
