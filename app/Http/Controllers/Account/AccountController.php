@@ -16,7 +16,7 @@ class AccountController extends Controller
         $account->name = $request->input('name');
         $account->birthday = $request->date('birthday');
         $account->icon_image_path = $request->input('icon_image_path', '');
-        $account->show_age_obscure = $request->input('show_age_obscure', false);
+        $account->show_age_obscure = $request->input('show_age_obscure', 1);
         $account->active_status = 1;
 
         $account->save();
