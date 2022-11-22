@@ -30,11 +30,11 @@
 
     <div class="flex items-start pt-1 pb-0 mt-3">
         <div class="flex h-5 items-center">
-            <input id="show_age_obscure" name="show_age_obscure" type="checkbox"
+            <input id="not_show_age" name="not_show_age" type="checkbox"
                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
         </div>
         <div class="flex-col ml-3 text-sm">
-            <label for="show_age_obscure" class="font-medium text-gray-700">年齢を表示しない</label>
+            <label for="not_show_age" class="font-medium text-gray-700">年齢を表示しない</label>
         </div>
     </div>
 
@@ -43,3 +43,16 @@
             class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">登録</button>
     </div>
 </form>
+
+<script>
+    const show_age_obscure = document.getElementById('show_age_obscure');
+    const not_show_age     = document.getElementById('not_show_age');
+
+    show_age_obscure.addEventListener('click', () => {
+        if (show_age_obscure.checked) not_show_age.checked = false;
+    });
+
+    not_show_age.addEventListener('click', () => {
+        if (not_show_age.checked) show_age_obscure.checked = false;
+    });
+</script>
