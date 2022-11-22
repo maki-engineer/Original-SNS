@@ -12,11 +12,18 @@ class AccountController extends Controller
     public function create(CreateRequest $request)
     {
         $account = new Account;
-        $account->user_id = $request->user()->id;
-        $account->name = $request->input('name');
-        $account->birthday = $request->date('birthday');
+
+        $account->user_id         = $request->user()->id;
+        $account->name            = $request->input('name');
+        $account->birthday        = $request->date('birthday');
         $account->icon_image_path = $request->input('icon_image_path', '');
-        $account->show_age_obscure = $request->input('show_age_obscure', 1);
+
+        if ($request->input('show_age_obscure')) {
+            $account->show_age_obscure = 0;
+        }else{
+            $account->show_age_obscure = 1;
+        }
+
         $account->active_status = 1;
 
         $account->save();
