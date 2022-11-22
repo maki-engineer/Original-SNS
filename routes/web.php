@@ -44,6 +44,11 @@ Route::middleware('auth')->group(function() {
     ->name('user.follow');
     Route::post('/user/{userId}/unfollow', 'App\Http\Controllers\Account\AccountController@unfollow')
     ->name('user.unfollow');
+
+    Route::post('/create_account', 'App\Http\Controllers\Account\AccountController@create')
+    ->name('account.create');
+    Route::put('/update_account', 'App\Http\Controllers\Account\AccountController@update')
+    ->name('account.update');
 });
 
 Route::get('/dashboard', function () {
