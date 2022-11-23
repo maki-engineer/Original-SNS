@@ -40,6 +40,10 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/user/{userId}', 'App\Http\Controllers\Account\AccountController@show')
     ->name('user.show');
+    Route::get('/user/{userId}/following', 'App\Http\Controllers\Account\AccountController@following')
+    ->name('user.following');
+    Route::get('/user/{userId}/followers', 'App\Http\Controllers\Account\AccountController@followers')
+    ->name('user.followers');
     Route::post('/user/{userId}/follow', 'App\Http\Controllers\Account\AccountController@follow')
     ->name('user.follow');
     Route::post('/user/{userId}/unfollow', 'App\Http\Controllers\Account\AccountController@unfollow')
