@@ -13,4 +13,9 @@ class Account extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
 }
