@@ -36,14 +36,29 @@
                 @if ($account->id === Auth::id())
                     <p>プロフィールを編集</p>
                 @else
-                    <p>フォローする</p>
+                    @if ($isFollow)
+                        <form action="{{ route('user.unfollow', ['userId' => $account->id]) }}" method="post">
+                          @method('DELETE')
+                          @csrf
+                          <button class="inline-flex justify-center py-2 px-4 border border-transparent 
+                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 
+                                hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" type="submit">フォローを解除する</button>
+                        </form>
+                    @else
+                        <form action="{{ route('user.follow', ['userId' => $account->id]) }}" method="post">
+                          @csrf
+                          <button class="inline-flex justify-center py-2 px-4 border border-transparent 
+                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 
+                                hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" type="submit">フォローする</button>
+                        </form>
+                    @endif
                 @endif
               </div>
             </div>
           </div>
         </div>
 
-        <h1 class="mb-4 text-xl">ここにアカウント名</h1>
+        <h1 class="mb-4 text-xl">{{ $account->name }}</h1>
         <p class="mb-4 text-xl">ここに自己紹介文</p>
         <p class="mb-4 text-xl">ここに好きな項目名</p>
 
@@ -55,8 +70,8 @@
 
         @if ($account->id === Auth::id())
             <div class="flex">
-              <p class="mr-4 text-xl">ここにフォロー数</p>
-              <p class="text-xl">ここにフォロワー数</p>
+              <a href="{{ route('user.following', ['userId' => $account->id]) }}" class="mr-4 text-xl">フォロー数：{{ $followingCount }}</a>
+              <a href="{{ route('user.followers', ['userId' => $account->id]) }}" class="text-xl">フォロワー数：{{ $followerCount }}</a>
             </div>
         @endif
 

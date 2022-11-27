@@ -17,13 +17,29 @@
               <li class="mb-12"><a href="{{ route('tweet.index') }}">タイムライン</a></li>
               <li class="mb-12"><a href="">通知</a></li>
               <li class="mb-12"><a href="">メッセージ</a></li>
-              <li class="mb-12">プロフィール</li>
+              <li class="mb-12"><a href="{{ route('user.show', ['userId' => $account->id]) }}">プロフィール</a></li>
               <li class="mb-12"><a href="">設定</a></li>
             </ul>
         @endauth
       </div>
 
-      <div class="w-1/3"></div>
+      <div class="w-1/3">
+        <a href="{{ route('user.show', ['userId' => $account->id]) }}" class="mt-12 pl-6 text-4xl"><</a>
+        <div class="flex mt-12">
+          <a href="{{ route('user.following', ['userId' => $account->id]) }}" class="flex justify-center text-4xl font-bold w-1/2">フォロー中</a>
+          <div class="flex justify-center text-4xl font-bold w-1/2 bg-green-700">フォロワー</div>
+        </div>
+
+        <div class="bg-white rounded-md shadow-lg mt-12 mb-5">
+          <ul>
+            @for ($i = 0; $i < count($followers); $i++)
+                <li class="border-b last:border-b-0 border-gray-200 p-4 flex items-start justify-between">
+                  {{ $followers[$i]->name }}
+                </li>
+            @endfor
+          </ul>
+        </div>
+      </div>
 
       <div class="w-1/3"><!--ここはもしかしたら余白かな？--></div>
     </div>

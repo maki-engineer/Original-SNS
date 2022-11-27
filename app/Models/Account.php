@@ -18,14 +18,4 @@ class Account extends Model
     {
         return $this->hasMany(Tweet::class);
     }
-
-    public function follows()
-    {
-        return $this->belongsTo(User::class, 'follower_relationships', 'follower_id', 'user_id');
-    }
-
-    public function followers()
-    {
-        return $this->belongsTo(User::class, 'follower_relationships', 'user_id', 'follower_id');
-    }
 }
