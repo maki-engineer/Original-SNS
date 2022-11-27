@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function() {
     ->name('user.followers');
     Route::post('/user/{userId}/follow', 'App\Http\Controllers\Account\AccountController@follow')
     ->name('user.follow');
-    Route::post('/user/{userId}/unfollow', 'App\Http\Controllers\Account\AccountController@unfollow')
+    Route::delete('/user/{userId}/unfollow', 'App\Http\Controllers\Account\AccountController@unfollow')
     ->name('user.unfollow');
 
     Route::post('/create_account', 'App\Http\Controllers\Account\AccountController@create')

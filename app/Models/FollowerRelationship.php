@@ -12,5 +12,4 @@ class FollowerRelationship extends Model
     protected $table = 'follower_relationships';
 
     public $timestamps   = false;
-    public $incrementing = false;
 }
