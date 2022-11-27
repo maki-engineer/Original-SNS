@@ -8,7 +8,7 @@ class TweetService
 {
   public function getTweets()
   {
-    return Tweet::orderBy('created_at', 'DESC')->get();
+    return Tweet::orderBy('created_at', 'DESC')->take(50)->get();
   }
 
   public function checkOwnTweet(int $userId, int $tweetId): bool

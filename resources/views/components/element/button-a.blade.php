@@ -15,10 +15,10 @@
 @endphp
 <a href="{{ $href }}" class="
     inline-flex justify-center
-    py-2 px-4
+    py-2 px-6
     border border-transparent
     shadow-sm
-    text-sm
+    text-lg
     font-medium
     rounded-md
     focus:outline-none focus:ring-2 focus:ring-offset-2 {{ getThemeClassForButtonA($theme) }}">
