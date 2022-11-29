@@ -31,14 +31,14 @@ class AccountController extends Controller
         $isFollow = (bool)FollowerRelationship::where('follower_id', Auth::id())->where('user_id', $userId)->count();
 
         // フォロー中数
-        $followingCount = FollowerRelationship::where('follower_id', $userId)->count();
+        $followingCount = FollowerRelationship::where('follower_id', Auth::id())->count();
 
         // フォロワー数
-        $followerCount = FollowerRelationship::where('user_id', $userId)->count();
+        $followerCount = FollowerRelationship::where('user_id', Auth::id())->count();
 
         foreach (array_values($tweetsToArray) as $tweet) {
             $goods[]   = Good::where('tweet_id', $tweet['tweet_id'])->count();
-            $isGoods[] = (bool)Good::where('user_id', $userId)->where('tweet_id', $tweet['tweet_id'])->count();
+            $isGoods[] = (bool)Good::where('user_id', Auth::id())->where('tweet_id', $tweet['tweet_id'])->count();
         }
 
         return view('user.show', ['account' => $account, 'tweets' => $tweets, 'goods' => $goods, 'isGoods' => $isGoods, 'isFollow' => $isFollow, 'followingCount' => $followingCount, 'followerCount' => $followerCount]);
