@@ -16,7 +16,11 @@
               <li class="mb-12"><a href="{{ route('tweet.index') }}">タイムライン</a></li>
               <li class="mb-12"><a href="">通知</a></li>
               <li class="mb-12"><a href="">メッセージ</a></li>
-              <li class="mb-12">プロフィール</li>
+              @if ($account->id === Auth::id())
+                  <li class="mb-12">プロフィール</li>
+              @else
+                  <li class="mb-12"><a href="{{ route('user.show', ['userId' => Auth::id()]) }}">プロフィール</a></li>
+              @endif
               <li class="mb-12"><a href="">設定</a></li>
             </ul>
         @endauth
