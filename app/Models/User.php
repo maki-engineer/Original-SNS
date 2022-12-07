@@ -46,9 +46,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Account::class);
     }
-
-    public function tweets()
-    {
-        return $this->hasMany(Tweet::class);
-    }
 }

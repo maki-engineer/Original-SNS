@@ -9,7 +9,7 @@
         <li class="border-b last:border-b-0 border-gray-200 p-4 flex items-start justify-between">
             <div>
                 <span class="inline-block rounded-full text-gray-600 bg-gray-100 px-2 py-1 text-xs mb-2">
-                    {{ $tweets[$i]->user->name }}
+                    <a href="{{ route('user.show', ['userId' => $tweets[$i]->user_id]) }}">{{ $tweets[$i]->user->name }}</a>
                 </span>
                 <div class="text-gray-600">
                   <a href="{{ route('tweet.show', ['tweetId' => $tweets[$i]->tweet_id]) }}">{!! nl2br(e($tweets[$i]->content)) !!}</a>

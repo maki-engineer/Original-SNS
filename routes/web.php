@@ -38,8 +38,21 @@ Route::middleware('auth')->group(function() {
     Route::delete('/tweet/unlike/{tweetId}', 'App\Http\Controllers\Tweet\IndexController@unlike')
     ->name('tweet.unlike');
 
-    Route::post('/create_account', 'App\Http\Controllers\Account\AccountController@create')->name('account.create');
-    Route::put('/update_account', 'App\Http\Controllers\Account\AccountController@update')->name('account.update');
+    Route::get('/user/{userId}', 'App\Http\Controllers\Account\AccountController@show')
+    ->name('user.show');
+    Route::get('/user/{userId}/following', 'App\Http\Controllers\Account\AccountController@following')
+    ->name('user.following');
+    Route::get('/user/{userId}/followers', 'App\Http\Controllers\Account\AccountController@followers')
+    ->name('user.followers');
+    Route::post('/user/{userId}/follow', 'App\Http\Controllers\Account\AccountController@follow')
+    ->name('user.follow');
+    Route::delete('/user/{userId}/unfollow', 'App\Http\Controllers\Account\AccountController@unfollow')
+    ->name('user.unfollow');
+
+    Route::post('/create_account', 'App\Http\Controllers\Account\AccountController@create')
+    ->name('account.create');
+    Route::put('/update_account', 'App\Http\Controllers\Account\AccountController@update')
+    ->name('account.update');
 });
 
 Route::get('/dashboard', function () {

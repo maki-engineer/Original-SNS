@@ -54,7 +54,7 @@
                     <li class="mb-12"><a href="{{ route('tweet.index') }}">タイムライン</a></li>
                     <li class="mb-12"><a href="">通知</a></li>
                     <li class="mb-12"><a href="">メッセージ</a></li>
-                    <li class="mb-12"><a href="">プロフィール</a></li>
+                    <li class="mb-12"><a href="{{ route('user.show', ['userId' => $account->id]) }}">プロフィール</a></li>
                     <li class="mb-12"><a href="">設定</a></li>
                   </ul>
                 </div>
