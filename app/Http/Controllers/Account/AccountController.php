@@ -44,6 +44,16 @@ class AccountController extends Controller
         return view('user.show', ['account' => $account, 'tweets' => $tweets, 'goods' => $goods, 'isGoods' => $isGoods, 'isFollow' => $isFollow, 'followingCount' => $followingCount, 'followerCount' => $followerCount]);
     }
 
+    public function profileUpdate(Request $request)
+    {
+        return view('user.update', []);
+    }
+
+    public function profilePut(Request $request)
+    {
+        return redirect();
+    }
+
     public function following(Request $request)
     {
         $userId  = (int)$request->route('userId');

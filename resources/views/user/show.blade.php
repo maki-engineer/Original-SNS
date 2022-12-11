@@ -38,7 +38,9 @@
               <div class="w-1/3">ここにDMマーク</div>
               <div class="w-1/3">
                 @if ($account->id === Auth::id())
-                    <p>プロフィールを編集</p>
+                    <a href="{{ route('user.update', ['userId' => $account->id]) }}" class="inline-flex justify-center py-2 px-4 border border-transparent 
+                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 
+                                hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" type="submit">プロフィールを編集</a>
                 @else
                     @if ($isFollow)
                         <form action="{{ route('user.unfollow', ['userId' => $account->id]) }}" method="post">
