@@ -47,7 +47,10 @@ class AccountController extends Controller
 
     public function profileUpdate(Request $request)
     {
-        return view('user.update', []);
+        $userId  = (int)$request->route('userId');
+        $account = Account::where('id', $userId)->firstOrFail();
+
+        return view('user.update', ['account' => $account]);
     }
 
     public function profilePut(Request $request)
