@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function() {
     ->name('user.update');
     Route::put('/user/{userId}/update', 'App\Http\Controllers\Account\AccountController@profilePut')
     ->name('user.put');
+    Route::get('/user/{userId}/likes', 'App\Http\Controllers\Account\AccountController@likes')
+    ->name('user.likes');
     Route::get('/user/{userId}/following', 'App\Http\Controllers\Account\AccountController@following')
     ->name('user.following');
     Route::get('/user/{userId}/followers', 'App\Http\Controllers\Account\AccountController@followers')

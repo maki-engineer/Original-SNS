@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Services\TweetService;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Models\Good;
@@ -18,7 +19,7 @@ class AccountController extends Controller
         $userId  = (int)$request->route('userId');
         $account = Account::where('id', $userId)->firstOrFail();
 
-        $tweets = Tweet::orderBy('created_at', 'DESC')->where('user_id', $userId)->take(50)->get();
+        $tweets        = Tweet::orderBy('created_at', 'DESC')->where('user_id', $userId)->take(50)->get();
         $tweetsToArray = $tweets->toArray();
 
         // いいねの数
@@ -52,6 +53,33 @@ class AccountController extends Controller
     public function profilePut(Request $request)
     {
         return redirect();
+    }
+
+    public function likes(Request $request, TweetService $tweetService)
+    {
+        $userId  = (int)$request->route('userId');
+        $account = Account::where('id', $userId)->firstOrFail();
+
+        $tweets        = $tweetService->getTweets();
+        $tweetsToArray = $tweets->toArray();
+
+        // いいねしたかどうか
+        $isGoods = [];
+
+        // アカウントをフォローしているかどうか
+        $isFollow = (bool)FollowerRelationship::where('follower_id', Auth::id())->where('user_id', $userId)->count();
+
+        // フォロー中数
+        $followingCount = FollowerRelationship::where('follower_id', Auth::id())->count();
+
+        // フォロワー数
+        $followerCount = FollowerRelationship::where('user_id', Auth::id())->count();
+
+        foreach (array_values($tweetsToArray) as $tweet) {
+            $isGoods[] = (bool)Good::where('user_id', Auth::id())->where('tweet_id', $tweet['tweet_id'])->count();
+        }
+
+        return view('user.likes', ['account' => $account, 'tweets' => $tweets, 'isGoods' => $isGoods, 'isFollow' => $isFollow, 'followingCount' => $followingCount, 'followerCount' => $followerCount]);
     }
 
     public function following(Request $request)
