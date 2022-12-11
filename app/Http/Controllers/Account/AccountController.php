@@ -142,10 +142,11 @@ class AccountController extends Controller
     {
         $account = new Account;
 
-        $account->user_id         = $request->user()->id;
-        $account->name            = $request->input('name');
-        $account->birthday        = $request->date('birthday');
-        $account->icon_image_path = $request->input('icon_image_path', '');
+        $account->user_id           = $request->user()->id;
+        $account->name              = $request->input('name');
+        $account->birthday          = $request->date('birthday');
+        $account->icon_image_path   = $request->input('icon_image_path', '');
+        $account->introduction_text = '';
 
         // 0 年齢非表示、1 年齢をあいまいに表示、2 年齢をはっきりと表示
         $account->show_age_obscure = 2;
