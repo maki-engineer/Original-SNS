@@ -73,7 +73,9 @@ class IndexController extends Controller
 
         $tweet = Tweet::where('tweet_id', $tweetId)->firstOrFail();
 
-        return view('tweet.update', ['tweet' => $tweet]);
+        $account = Account::where('user_id', $tweet->user_id)->firstOrFail();
+
+        return view('tweet.update', ['tweet' => $tweet, 'account' => $account]);
     }
 
     public function put(UpdateRequest $request, TweetService $tweetService)
