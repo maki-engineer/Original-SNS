@@ -65,7 +65,7 @@
         </div>
 
         <h1 class="mb-4 text-xl">{{ $account->name }}</h1>
-        <p class="mb-4 text-xl">ここに自己紹介文</p>
+        <p class="mb-4 text-xl">{{ $account->introduction_text }}</p>
         <p class="mb-4 text-xl">ここに好きな項目名</p>
 
         @if ($account->show_age_obscure === 1)
