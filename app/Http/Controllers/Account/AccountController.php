@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Services\TweetService;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Models\Good;
@@ -10,6 +11,7 @@ use App\Models\FollowerRelationship;
 use App\Models\Account;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Account\CreateRequest;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class AccountController extends Controller
 {
@@ -18,7 +20,7 @@ class AccountController extends Controller
         $userId  = (int)$request->route('userId');
         $account = Account::where('id', $userId)->firstOrFail();
 
-        $tweets = Tweet::orderBy('created_at', 'DESC')->where('user_id', $userId)->take(50)->get();
+        $tweets        = Tweet::orderBy('created_at', 'DESC')->where('user_id', $userId)->take(50)->get();
         $tweetsToArray = $tweets->toArray();
 
         // いいねの数
@@ -42,6 +44,78 @@ class AccountController extends Controller
         }
 
         return view('user.show', ['account' => $account, 'tweets' => $tweets, 'goods' => $goods, 'isGoods' => $isGoods, 'isFollow' => $isFollow, 'followingCount' => $followingCount, 'followerCount' => $followerCount]);
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $userId  = (int)$request->route('userId');
+
+        if ($userId !== Auth::id()) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $account = Account::where('id', $userId)->firstOrFail();
+
+        return view('user.update', ['account' => $account]);
+    }
+
+    public function profilePut(Request $request)
+    {
+        $userId  = (int)$request->route('userId');
+
+        if ($userId !== Auth::id()) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $account = Account::where('id', $userId)->firstOrFail();
+
+        $account->name              = $request->input('name');
+        $account->birthday          = $request->date('birthday');
+        $account->icon_image_path   = $request->input('icon_image_path', '');
+        $account->introduction_text = $request->input('introduction_text');
+
+        // 0 年齢非表示、1 年齢をあいまいに表示、2 年齢をはっきりと表示
+        $account->show_age_obscure = 2;
+
+        if ($request->input('show_age_obscure')) {
+            $account->show_age_obscure = 1;
+        }
+
+        if ($request->input('not_show_age')) {
+            $account->show_age_obscure = 0;
+        }
+
+        $account->save();
+
+        return redirect()
+            ->route('user.show', ['userId' => $account->id]);
+    }
+
+    public function likes(Request $request, TweetService $tweetService)
+    {
+        $userId  = (int)$request->route('userId');
+        $account = Account::where('id', $userId)->firstOrFail();
+
+        $tweets        = $tweetService->getTweets();
+        $tweetsToArray = $tweets->toArray();
+
+        // いいねしたかどうか
+        $isGoods = [];
+
+        // アカウントをフォローしているかどうか
+        $isFollow = (bool)FollowerRelationship::where('follower_id', Auth::id())->where('user_id', $userId)->count();
+
+        // フォロー中数
+        $followingCount = FollowerRelationship::where('follower_id', Auth::id())->count();
+
+        // フォロワー数
+        $followerCount = FollowerRelationship::where('user_id', Auth::id())->count();
+
+        foreach (array_values($tweetsToArray) as $tweet) {
+            $isGoods[] = (bool)Good::where('user_id', Auth::id())->where('tweet_id', $tweet['tweet_id'])->count();
+        }
+
+        return view('user.likes', ['account' => $account, 'tweets' => $tweets, 'isGoods' => $isGoods, 'isFollow' => $isFollow, 'followingCount' => $followingCount, 'followerCount' => $followerCount]);
     }
 
     public function following(Request $request)
@@ -104,10 +178,11 @@ class AccountController extends Controller
     {
         $account = new Account;
 
-        $account->user_id         = $request->user()->id;
-        $account->name            = $request->input('name');
-        $account->birthday        = $request->date('birthday');
-        $account->icon_image_path = $request->input('icon_image_path', '');
+        $account->user_id           = $request->user()->id;
+        $account->name              = $request->input('name');
+        $account->birthday          = $request->date('birthday');
+        $account->icon_image_path   = $request->input('icon_image_path', '');
+        $account->introduction_text = '';
 
         // 0 年齢非表示、1 年齢をあいまいに表示、2 年齢をはっきりと表示
         $account->show_age_obscure = 2;

@@ -74,73 +74,41 @@
             <p class="mb-4 text-xl">年齢をはっきりと表示</p>
         @endif
 
-        @if ($account->id === Auth::id())
-            <div class="flex">
-              <a href="{{ route('user.following', ['userId' => $account->id]) }}" class="mr-4 text-xl">フォロー数：{{ $followingCount }}</a>
-              <a href="{{ route('user.followers', ['userId' => $account->id]) }}" class="text-xl">フォロワー数：{{ $followerCount }}</a>
-            </div>
+        <div class="flex">
+          <a href="{{ route('user.following', ['userId' => $account->id]) }}" class="mr-4 text-xl">フォロー数：{{ $followingCount }}</a>
+          <a href="{{ route('user.followers', ['userId' => $account->id]) }}" class="text-xl">フォロワー数：{{ $followerCount }}</a>
+        </div>
 
-            <div class="flex">
-              <div class="flex justify-center w-1/2 text-4xl font-bold mt-12 bg-green-700">投稿一覧</div>
-              <a href="{{ route('user.likes', ['userId' => $account->id]) }}" class="flex justify-center w-1/2 text-4xl font-bold mt-12">いいね一覧</a>
-            </div>
+        <div class="flex">
+          <a href="{{ route('user.show', ['userId' => $account->id]) }}" class="flex justify-center w-1/2 text-4xl font-bold mt-12">投稿一覧</a>
+          <div class="flex justify-center w-1/2 text-4xl font-bold mt-12 bg-green-700">いいね一覧</div>
+        </div>
 
-            <div class="bg-white rounded-md shadow-lg mt-12 mb-5">
-              <ul>
-                @for ($i = 0; $i < count($tweets); $i++)
+        <div class="bg-white rounded-md shadow-lg mt-12 mb-5">
+          <ul>
+            @for ($i = 0; $i < count($tweets); $i++)
+                @if ($isGoods[$i])
                     <li class="border-b last:border-b-0 border-gray-200 p-4 flex items-start justify-between">
                       <div>
                         <span class="inline-block rounded-full text-gray-600 bg-gray-100 px-2 py-1 text-xs mb-2">
-                          {{ $tweets[$i]->user->name }}
+                            <a href="{{ route('user.show', ['userId' => $tweets[$i]->user_id]) }}">{{ $tweets[$i]->user->name }}</a>
                         </span>
                         <div class="text-gray-600">
                           <a href="{{ route('tweet.show', ['tweetId' => $tweets[$i]->tweet_id]) }}">{!! nl2br(e($tweets[$i]->content)) !!}</a>
                           <div class="flex">
-                            <img class="mt-2" src="/images/si_Heart_my.svg">
-
-                            <div class="mt-2 ml-2">{{ $goods[$i] }}</div>
+                            <form action="{{ route('tweet.unlike', ['tweetId' => $tweets[$i]->tweet_id]) }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit"><img class="mt-2" src="/images/si_Heart.svg"></button>
+                            </form>
                           </div>
                         </div>
                       </div>
                     </li>
-                @endfor
-              </ul>
-            </div>
-        @else
-            <div class="flex justify-center text-4xl font-bold mt-12">投稿一覧</div>
-
-            <div class="bg-white rounded-md shadow-lg mt-12 mb-5">
-              <ul>
-                @for ($i = 0; $i < count($tweets); $i++)
-                    <li class="border-b last:border-b-0 border-gray-200 p-4 flex items-start justify-between">
-                      <div>
-                        <span class="inline-block rounded-full text-gray-600 bg-gray-100 px-2 py-1 text-xs mb-2">
-                          {{ $tweets[$i]->user->name }}
-                        </span>
-                        <div class="text-gray-600">
-                          <a href="{{ route('tweet.show', ['tweetId' => $tweets[$i]->tweet_id]) }}">{!! nl2br(e($tweets[$i]->content)) !!}</a>
-                          <div class="flex">
-                            @if($isGoods[$i])
-                                <form action="{{ route('tweet.unlike', ['tweetId' => $tweets[$i]->tweet_id]) }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit"><img class="mt-2" src="/images/si_Heart.svg"></button>
-                                </form>
-                            @else
-                                <form action="{{ route('tweet.like', ['tweetId' => $tweets[$i]->tweet_id]) }}" method="post">
-                                    @csrf
-                                    <button type="submit"><img class="mt-2" src="/images/si_Heart_alt.svg"></button>
-                                </form>
-                            @endif
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                @endfor
-              </ul>
-            </div>
-        @endif
-
+                @endif
+            @endfor
+          </ul>
+        </div>
       </div>
 
       <div class="w-1/3"><!--ここはもしかしたら余白かな？--></div>
