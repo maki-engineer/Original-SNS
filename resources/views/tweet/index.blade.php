@@ -23,26 +23,14 @@
               <x-element.button-a :href="route('register')" theme="secondary">会員登録</x-element.button-a>
           </div>
         </div>
-    
+
         <!-- ここにh1タグで「SpaChatへようこそ！」てやるべきか -->
         <h3 class="text-justify my-12 text-2xl p-8">SpaChat（スパチャット）は、「温泉のようなチャット場」を由来として誕生したSNSです。<br><br>温泉は入ると疲れた体を回復してくれるだけでなく、癒されたり、最近ではメンタルが回復する効果も期待されていると言われています。そして、温泉はみんなが入ることが出来ます。<br><br>SpaChatも温泉と同じように、「SNSが原因で精神的に病んでしまった人が幸せになることが出来るSNSであってほしい」という願いから誕生しました。<br><br>SpaChatは他のSNSとは違い、他のアカウントのいいねの数やフォロワーの数などが表示されない仕組みになっています。他のSNSにはないオリジナルな機能を備えているSpaChat、是非楽しんでください！</h3>
     @endguest
 
     @auth
         @if ($account === null)
-            <div class="flex">
-              <div class="w-1/3"><!--余白用--></div>
-              <x-register_account></x-register_account>
-              <form action="{{ route('logout') }}" method="post">
-                  @csrf
-                  <div>
-                      <button class="ml-2 mt-6 text-sm text-gray-500 hover:text-gray-800"
-                          onclick="event.preventDefault(); this.closest('form').submit();">
-                          最初からやり直す
-                      </button>
-                  </div>
-              </form>
-            </div>
+            <x-register_account></x-register_account>
         @endif
     @endauth
 
@@ -72,7 +60,7 @@
                             @csrf
                             <div class="mt-2">
                                 <textarea name="tweet" rows="3"
-                                    class="focus:ring-blue-400 focus:border-blue-400 mt-1 block 
+                                    class="focus:ring-blue-400 focus:border-blue-400 mt-1 block
                               w-full sm:text-sm border border-gray-300 rounded-md p-2"
                                     placeholder="つぶやきを入力"></textarea>
                             </div>
@@ -94,8 +82,8 @@
 
                             <div class="flex flex-wrap justify-end">
                                 <button type="submit"
-                                    class="inline-flex justify-center py-2 px-4 border border-transparent 
-                            shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 
+                                    class="inline-flex justify-center py-2 px-4 border border-transparent
+                            shadow-sm text-sm font-medium rounded-md text-white bg-blue-500
                             hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                     投稿
                                 </button>
