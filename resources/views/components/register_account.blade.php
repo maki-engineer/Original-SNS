@@ -41,16 +41,16 @@
                 {{ __('登録') }}
             </x-button>
         </div>
+    </form>
 
-        <div class="px-4 text-right">
-            <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <button class="text-sm text-gray-500 hover:text-gray-800"
-                    onclick="event.preventDefault(); this.closest('form').submit();">
-                    最初からやり直す
-                </button>
-            </form>
-        </div>
+    {{-- TODO: 登録したユーザーの削除 --}}
+    <form action="{{ route('logout') }}" method="post" class="flex">
+        <div class="w-44"></div>
+        @csrf
+        <button class="text-sm text-gray-500 hover:text-gray-800"
+            onclick="event.preventDefault(); this.closest('form').submit();">
+            最初からやり直す
+        </button>
     </form>
 
     <script>
