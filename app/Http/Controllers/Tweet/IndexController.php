@@ -55,7 +55,13 @@ class IndexController extends Controller
     public function create(CreateRequest $request)
     {
         $tweet          = new Tweet;
-        $tweet->user_id = $request->userId();
+        $accounts       = Account::where('user_id', $request->userId())->get();
+
+        if ($accounts->isEmpty()) {
+            return response()->view('sample.error', ['msg' => "アカウント情報の取得に失敗しました"]);
+        }
+
+        $tweet->user_id = $accounts->first()->id;
         $tweet->content = $request->tweet();
         $tweet->status  = 1;
         $tweet->save();
