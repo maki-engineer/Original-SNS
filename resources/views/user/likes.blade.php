@@ -16,7 +16,7 @@
               <li class="mb-12"><a href="{{ route('tweet.index') }}">タイムライン</a></li>
               <li class="mb-12"><a href="">通知</a></li>
               <li class="mb-12"><a href="">メッセージ</a></li>
-              @if ($account->id === Auth::id())
+              @if ($account->user_id === Auth::id())
                   <li class="mb-12">プロフィール</li>
               @else
                   <li class="mb-12"><a href="{{ route('user.show', ['userId' => Auth::id()]) }}">プロフィール</a></li>
@@ -37,24 +37,24 @@
               <div class="w-1/3">ここにタブ</div>
               <div class="w-1/3">ここにDMマーク</div>
               <div class="w-1/3">
-                @if ($account->id === Auth::id())
-                    <a href="{{ route('user.update', ['userId' => $account->id]) }}" class="inline-flex justify-center py-2 px-4 border border-transparent 
-                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 
+                @if ($account->user_id === Auth::id())
+                    <a href="{{ route('user.update', ['userId' => $account->id]) }}" class="inline-flex justify-center py-2 px-4 border border-transparent
+                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500
                                 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" type="submit">プロフィールを編集</a>
                 @else
                     @if ($isFollow)
                         <form action="{{ route('user.unfollow', ['userId' => $account->id]) }}" method="post">
                           @method('DELETE')
                           @csrf
-                          <button class="inline-flex justify-center py-2 px-4 border border-transparent 
-                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 
+                          <button class="inline-flex justify-center py-2 px-4 border border-transparent
+                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500
                                 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" type="submit">フォローを解除する</button>
                         </form>
                     @else
                         <form action="{{ route('user.follow', ['userId' => $account->id]) }}" method="post">
                           @csrf
-                          <button class="inline-flex justify-center py-2 px-4 border border-transparent 
-                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 
+                          <button class="inline-flex justify-center py-2 px-4 border border-transparent
+                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500
                                 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" type="submit">フォローする</button>
                         </form>
                     @endif
