@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tweet;
 
+use App\Enums\AccountStatus;
 use App\Http\Controllers\Controller;
 use App\Services\TweetService;
 use App\Http\Requests\Tweet\CreateRequest;
@@ -54,8 +55,16 @@ class IndexController extends Controller
 
     public function create(CreateRequest $request)
     {
-        $tweet          = new Tweet;
-        $tweet->user_id = $request->userId();
+        $tweet   = new Tweet;
+        $account = Account::where('user_id', $request->userId())
+            ->where('active_status', AccountStatus::ACTIVE)
+            ->firstOrFail();
+
+        if ($account == null) {
+            return response()->view('layouts.error', ['msg' => "アカウント情報の取得に失敗しました"]);
+        }
+
+        $tweet->user_id = $account->id;
         $tweet->content = $request->tweet();
         $tweet->status  = 1;
         $tweet->save();

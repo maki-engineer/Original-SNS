@@ -16,7 +16,7 @@
               <li class="mb-12"><a href="{{ route('tweet.index') }}">タイムライン</a></li>
               <li class="mb-12"><a href="">通知</a></li>
               <li class="mb-12"><a href="">メッセージ</a></li>
-              @if ($account->id === Auth::id())
+              @if ($account->user_id === Auth::id())
                   <li class="mb-12">プロフィール</li>
               @else
                   <li class="mb-12"><a href="{{ route('user.show', ['userId' => Auth::id()]) }}">プロフィール</a></li>
@@ -37,8 +37,8 @@
             </div>
             <div class="w-1/2">
               <div class="flex justify-end">
-                <button class="inline-flex justify-center py-2 px-4 border border-transparent 
-                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 
+                <button class="inline-flex justify-center py-2 px-4 border border-transparent
+                                shadow-sm text-sm font-medium rounded-md text-white bg-blue-500
                                 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" type="submit">保存</button>
               </div>
             </div>
@@ -54,7 +54,7 @@
 
           <div class="col-span-6 sm:col-span-4 py-2">
               <label for="birthday" class="block text-sm font-medium text-gray-700">誕生日</label>
-              <input type="date" name="birthday" id="birthday" value="{{ $account->birthday }}" 
+              <input type="date" name="birthday" id="birthday" value="{{ $account->birthday }}"
                   class="mt-1 block w- rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           </div>
 

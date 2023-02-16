@@ -36,7 +36,7 @@
 
     <div class="flex">
         @if ($account)
-            @if ($account->id === Auth::id())
+            @if ($account->user_id === Auth::id())
                 <div class="flex justify-end pt-6 pr-8 w-1/3">
                   <ul class="text-4xl">
                     <li class="mb-12"><a href="{{ route('tweet.index') }}">タイムライン</a></li>
@@ -96,7 +96,7 @@
         </div>
 
         @auth
-            @if (($account) && ($account->id === Auth::id()))
+            @if (($account) && ($account->user_id === Auth::id()))
                 <form action="{{ route('logout') }}" method="post">
                     @csrf
                     <div>
